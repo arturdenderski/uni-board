@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import { Typography, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material'; // Import Dialog components
+import { Typography, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SettingsPopup from '../components/SettingsPopup';
 import { useNavigate } from 'react-router-dom';
+import MessagesDrawer from '../components/MessagesDrawer';
+import MessageBox from '../components/MessageBox';
 
 function ProfilePage() {
   const [openSettings, setOpenSettings] = useState(false);
-  const [openConfirmation, setOpenConfirmation] = useState(false); // State to control the visibility of the confirmation dialog
+  const [openConfirmation, setOpenConfirmation] = useState(false);
   const navigate = useNavigate();
+  
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null); 
 
   const handleOpenSettings = () => {
     setOpenSettings(true);
@@ -19,21 +24,30 @@ function ProfilePage() {
   };
 
   const handleLogout = () => {
-    setOpenConfirmation(true); // Open the confirmation dialog
+    setOpenConfirmation(true);
   };
 
   const handleConfirmLogout = () => {
-    // Clear any user data from localStorage if needed
     navigate('/');
   };
 
   const handleCancelLogout = () => {
-    setOpenConfirmation(false); // Close the confirmation dialog
+    setOpenConfirmation(false);
+  };
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+    toggleDrawer();
   };
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <Navbar />
+      <Navbar onMessagesIconClick={toggleDrawer} />
+      <MessagesDrawer open={drawerOpen} onClose={toggleDrawer} onUserSelect={handleUserSelect} />
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: 'calc(100vh - 64px)', paddingBottom: '20px' }}>
         <Typography variant="h6" gutterBottom style={{ marginTop: '20px', marginLeft: '20px' }}>
           Your Posts
@@ -53,7 +67,6 @@ function ProfilePage() {
 
         <SettingsPopup open={openSettings} onClose={handleCloseSettings} />
 
-        {/* Confirmation dialog */}
         <Dialog open={openConfirmation} onClose={handleCancelLogout}>
           <DialogTitle>Confirm Logout</DialogTitle>
           <DialogContent>
@@ -68,6 +81,8 @@ function ProfilePage() {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <MessageBox userId={selectedUser} onClose={() => setSelectedUser(null)} />
       </div>
     </div>
   );

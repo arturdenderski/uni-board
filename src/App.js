@@ -1,10 +1,19 @@
-import React from 'react';
+// App.js
+
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainPage from './views/MainPage';
 import ProfilePage from './views/ProfilePage';
 import SearchPage from './views/SearchPage';
+import { initializeUserDatabase, initializeMessagesDatabase } from './assets/storage/localStorage';
 
 function App() {
+  // Call initialization functions when the application starts
+  useEffect(() => {
+    initializeUserDatabase();
+    initializeMessagesDatabase();
+  }, []);
+
   return (
     <Router>
       <Routes>

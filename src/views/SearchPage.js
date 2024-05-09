@@ -18,7 +18,7 @@ const posts = [
     photo: 'coconut.jpg',
     title: 'Coconut for sale',
     description: 'Description for Post 1',
-    author: 'John Lebowski',
+    authorId: 1,
     location: 'Hempshire',
     price: '$10',
   },
@@ -27,12 +27,14 @@ const posts = [
     photo: 'coconut.jpg',
     title: 'Another Coconut for sale',
     description: 'Description for Post 2',
-    author: 'John Lebowski',
+    authorId: 2,
     location: 'Hempshire',
     price: '$10',
   },
-  // Add more posts as needed
 ];
+
+const users = JSON.parse(localStorage.getItem('users')) || [];
+console.log(users);
 
 function SearchPage() {
   return (
@@ -101,7 +103,8 @@ function SearchPage() {
               photo={post.photo}
               title={post.title}
               description={post.description}
-              author={post.author}
+              author={users.find((user) => user.id === post.authorId).name}
+              authorId={post.authorId}
               location={post.location}
               price={post.price}
             />
