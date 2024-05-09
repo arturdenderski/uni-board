@@ -85,8 +85,27 @@ function initializePostsDatabase() {
   localStorage.setItem('posts', JSON.stringify(initialPosts));
 }
 
+function initializeSelfAuthoredPostsDatabase() {
+  if (localStorage.getItem('myposts')) {
+    return;
+  }
+  const initialPosts = [
+    {
+      id: 0,
+      title: 'Coconut',
+      photo: 'coconut.jpg',
+      description: 'I want to sell a coconut',
+      authorId: -1,
+      location: 'New York',
+      price: 0,
+    },
+  ];
+  localStorage.setItem('myposts', JSON.stringify(initialPosts));
+}
+
 export {
   initializeUserDatabase,
   initializeMessagesDatabase,
   initializePostsDatabase,
+  initializeSelfAuthoredPostsDatabase,
 };

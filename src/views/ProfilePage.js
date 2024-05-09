@@ -14,6 +14,8 @@ import SettingsPopup from '../components/SettingsPopup';
 import { useNavigate } from 'react-router-dom';
 import MessagesDrawer from '../components/MessagesDrawer';
 import MessageBox from '../components/MessageBox';
+import { Grid, Stack } from '@mui/material';
+import PostMini from '../components/PostMini';
 
 function ProfilePage() {
   const [openSettings, setOpenSettings] = useState(false);
@@ -52,6 +54,9 @@ function ProfilePage() {
     toggleDrawer();
   };
 
+  let posts = JSON.parse(localStorage.getItem('myposts'));
+  const users = JSON.parse(localStorage.getItem('users'));
+
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       <Navbar onMessagesIconClick={toggleDrawer} />
@@ -68,6 +73,21 @@ function ProfilePage() {
           paddingBottom: '20px',
         }}
       >
+        <Grid item xs={6}>
+          <Stack container spacing={2} style={{ padding: '20px' }}>
+            {posts.map((post) => (
+              <PostMini
+                key={post.id}
+                photo={post.photo}
+                title={post.title}
+                description={post.description}
+                authorId={-1}
+                location={post.location}
+                price={post.price}
+              />
+            ))}
+          </Stack>
+        </Grid>
         <Typography
           variant="h6"
           gutterBottom

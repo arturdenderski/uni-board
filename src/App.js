@@ -9,6 +9,7 @@ import {
   initializeUserDatabase,
   initializeMessagesDatabase,
   initializePostsDatabase,
+  initializeSelfAuthoredPostsDatabase,
 } from './assets/storage/localStorage';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     initializeUserDatabase();
     initializeMessagesDatabase();
     initializePostsDatabase();
+    initializeSelfAuthoredPostsDatabase();
   }, []);
 
   return (

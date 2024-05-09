@@ -67,16 +67,27 @@ const PostMini = ({
                 <Typography variant="subtitle1" component="div">
                   {price}€
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {author}
-                </Typography>
+                {authorId !== -1 && (
+                  <Typography variant="body2" color="text.secondary">
+                    {author}
+                  </Typography>
+                )}
                 <Typography variant="body2" color="text.secondary">
                   {location}
                 </Typography>
               </Grid>
-              <Button variant="contained" onClick={() => setBoxId(authorId)}>
-                Reach out
-              </Button>
+              {authorId !== -1 ? (
+                <Button variant="contained" onClick={() => setBoxId(authorId)}>
+                  Reach out
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => console.log('post edited')}
+                >
+                  Edit
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Grid>
