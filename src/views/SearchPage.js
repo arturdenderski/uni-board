@@ -11,6 +11,8 @@ import {
 import Navbar from '../components/Navbar';
 import SearchIcon from '@mui/icons-material/Search';
 import PostList from '../components/PostList';
+import MessageBox from '../components/MessageBox';
+import MessagesDrawer from '../components/MessagesDrawer';
 
 function SearchPage() {
   const [filters, setFilters] = useState({
@@ -18,6 +20,9 @@ function SearchPage() {
     min: '',
     max: '',
   });
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const updateSearch = (event) => {
     setFilters({
@@ -40,12 +45,26 @@ function SearchPage() {
     });
   };
 
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+    toggleDrawer();
+  };
+
   return (
     <Grid container spacing={2}>
       {/* Navbar */}
       <Grid item xs={12}>
-        <Navbar />
+        <Navbar onMessagesIconClick={toggleDrawer} />
       </Grid>
+      <MessagesDrawer
+        open={drawerOpen}
+        onClose={toggleDrawer}
+        onUserSelect={handleUserSelect}
+      />
 
       {/* Filters Menu */}
       <Grid item xs={3}>
@@ -100,9 +119,9 @@ function SearchPage() {
           </Stack>
         </Paper>
       </Grid>
-
+      <MessageBox userId={selectedUser} onClose={() => setSelectedUser(-1)} />
       {/* Offer List */}
-      <PostList filters={filters} />
+      <PostList filters={filters} setUser={setSelectedUser} />
     </Grid>
   );
 }
