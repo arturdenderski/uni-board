@@ -1,27 +1,28 @@
+// MessageBox.js
+
 import React, { useState, useEffect } from 'react';
 import { Paper, Typography, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 
-function MessageBox({ selectedUser, onClose }) {
+function MessageBox({ userId, onClose }) {
   const [messageInput, setMessageInput] = useState('');
   const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setMessages(getInitialMessages(selectedUser));
-  }, [selectedUser]);
+    if (userId) {
+      // Retrieve user information from local storage using the user ID
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const currentUser = users.find(user => user.id === userId);
+      setUser(currentUser);
 
-  const handleMessageSend = () => {
-    if (messageInput.trim() !== '') {
-      const newMessage = { id: messages.length + 1, text: messageInput, sender: 'user', timestamp: getCurrentTime() };
-      const updatedMessages = [...messages, newMessage];
-      setMessages(updatedMessages);
-      setMessageInput('');
-  
-      // Update local storage
-      localStorage.setItem(selectedUser, JSON.stringify(updatedMessages));
+      // Retrieve messages for the user from local storage
+      const allMessages = JSON.parse(localStorage.getItem('messages')) || {};
+      const userMessages = allMessages[userId] || [];
+      setMessages(userMessages);
     }
-  };
+  }, [userId]);
 
   const getCurrentTime = () => {
     const now = new Date();
@@ -32,48 +33,24 @@ function MessageBox({ selectedUser, onClose }) {
     return `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${ampm}`;
   };
 
-  function getInitialMessages(userName) {
-    const storedMessages = localStorage.getItem(userName);
-    if (storedMessages) {
-      return JSON.parse(storedMessages);
+  const handleMessageSend = () => {
+    if (messageInput.trim() !== '') {
+      const newMessage = { id: messages.length + 1, text: messageInput, sender: 'user', timestamp: getCurrentTime() };
+      const updatedMessages = [...messages, newMessage];
+      setMessages(updatedMessages);
+      setMessageInput('');
+      // Update the messages for the user in local storage
+      const allMessages = JSON.parse(localStorage.getItem('messages')) || {};
+      allMessages[userId] = updatedMessages;
+      localStorage.setItem('messages', JSON.stringify(allMessages));
     }
-    switch (userName) {
-      case 'John Doe':
-        return [
-          { id: 1, text: 'Hello there!', sender: 'user', timestamp: '10:00 AM' },
-          { id: 2, text: 'How are you?', sender: 'other', timestamp: '10:05 AM' },
-          { id: 3, text: 'Nice to meet you!', sender: 'user', timestamp: '10:10 AM' },
-        ];
-      case 'Alice Smith':
-        return [
-          { id: 1, text: 'Hi!', sender: 'user', timestamp: '11:00 AM' },
-          { id: 2, text: 'Hello!', sender: 'other', timestamp: '11:05 AM' },
-        ];
-      case 'Bob Johnson':
-        return [
-          { id: 1, text: 'Good morning!', sender: 'user', timestamp: '9:00 AM' },
-          { id: 2, text: 'Good morning!', sender: 'other', timestamp: '9:05 AM' },
-        ];
-      case 'Emma Williams':
-        return [
-          { id: 1, text: 'Hey!', sender: 'user', timestamp: '12:00 PM' },
-          { id: 2, text: 'Hey!', sender: 'other', timestamp: '12:05 PM' },
-        ];
-      case 'Michael Brown':
-        return [
-          { id: 1, text: 'Hola!', sender: 'user', timestamp: '3:00 PM' },
-          { id: 2, text: 'Hola!', sender: 'other', timestamp: '3:05 PM' },
-        ];
-      default:
-        return [];
-    }
-  }
+  };
 
   return (
-    <Paper style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 500, padding: '10px', backgroundColor: '#f0f0f0', display: selectedUser ? 'block' : 'none' }}>
+    <Paper style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 500, padding: '10px', backgroundColor: '#f0f0f0', display: user ? 'block' : 'none' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="subtitle1">
-          Chatting with: {selectedUser}
+          Chatting with: {user ? user.name : ''}
         </Typography>
         <IconButton onClick={onClose}>
           <CloseIcon />

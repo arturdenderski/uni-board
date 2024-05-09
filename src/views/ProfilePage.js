@@ -5,14 +5,15 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import SettingsPopup from '../components/SettingsPopup';
 import { useNavigate } from 'react-router-dom';
 import MessagesDrawer from '../components/MessagesDrawer';
-import MessageBox from '../components/MessageBox'; // Import the MessageBox component
+import MessageBox from '../components/MessageBox';
 
 function ProfilePage() {
   const [openSettings, setOpenSettings] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const navigate = useNavigate();
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null); // State to store the selected user for messaging
+  const [selectedUser, setSelectedUser] = useState(null); 
 
   const handleOpenSettings = () => {
     setOpenSettings(true);
@@ -40,11 +41,7 @@ function ProfilePage() {
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
-    toggleDrawer(); // Close the drawer when a user is selected
-  };
-
-  const handleMessageSend = () => {
-    // Add functionality to send messages
+    toggleDrawer();
   };
 
   return (
@@ -70,7 +67,6 @@ function ProfilePage() {
 
         <SettingsPopup open={openSettings} onClose={handleCloseSettings} />
 
-        {/* Confirmation dialog */}
         <Dialog open={openConfirmation} onClose={handleCancelLogout}>
           <DialogTitle>Confirm Logout</DialogTitle>
           <DialogContent>
@@ -86,8 +82,7 @@ function ProfilePage() {
           </DialogActions>
         </Dialog>
 
-        {/* Message box */}
-        <MessageBox selectedUser={selectedUser} onClose={() => setSelectedUser(null)} />
+        <MessageBox userId={selectedUser} onClose={() => setSelectedUser(null)} />
       </div>
     </div>
   );
