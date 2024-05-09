@@ -61,7 +61,7 @@ function initializePostsDatabase() {
       description: 'I want to sell a coconut',
       authorId: 1,
       location: 'New York',
-      price: 'for free',
+      price: 0,
     },
     {
       id: 1,
@@ -70,7 +70,7 @@ function initializePostsDatabase() {
       description: 'Description for Post 1',
       authorId: 2,
       location: 'Hempshire',
-      price: '$10',
+      price: 5,
     },
     {
       id: 2,
@@ -79,7 +79,7 @@ function initializePostsDatabase() {
       description: 'Description for Post 2',
       authorId: 3,
       location: 'Your Grandma',
-      price: '$10',
+      price: 10,
     },
   ];
   localStorage.setItem('posts', JSON.stringify(initialPosts));

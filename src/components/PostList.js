@@ -17,6 +17,14 @@ function PostList({ filters }) {
       return false;
     }
 
+    if (filters.max != '' && post.price > filters.max) {
+      return false;
+    }
+
+    if (filters.min != '' && post.price < filters.min) {
+      return false;
+    }
+
     return true;
   });
 

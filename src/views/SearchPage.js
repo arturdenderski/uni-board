@@ -15,14 +15,28 @@ import PostList from '../components/PostList';
 function SearchPage() {
   const [filters, setFilters] = useState({
     search: '',
-    min: 0,
-    max: 20,
+    min: '',
+    max: '',
   });
 
   const updateSearch = (event) => {
     setFilters({
       ...filters,
       search: event.target.value,
+    });
+  };
+
+  const updateMax = (event) => {
+    setFilters({
+      ...filters,
+      max: event.target.value,
+    });
+  };
+
+  const updateMin = (event) => {
+    setFilters({
+      ...filters,
+      min: event.target.value,
     });
   };
 
@@ -68,6 +82,7 @@ function SearchPage() {
                     <InputAdornment position="start">€</InputAdornment>
                   ),
                 }}
+                onChange={updateMin}
                 sx={{ width: '45%', paddingRight: '15px' }}
               />
               <TextField
@@ -78,6 +93,7 @@ function SearchPage() {
                     <InputAdornment position="start">€</InputAdornment>
                   ),
                 }}
+                onChange={updateMax}
                 sx={{ width: '45%' }}
               />
             </Grid>
