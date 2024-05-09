@@ -31,9 +31,11 @@ function Navbar() {
         </IconButton>
 
         {/* Profile icon */}
-        <IconButton color="inherit">
-          <AccountCircleIcon />
-        </IconButton>
+        <Link to='/profile-page' style={{ textDecoration: 'none', color: 'inherit' }}>
+          <IconButton color="inherit">
+            <AccountCircleIcon />
+          </IconButton>
+        </Link>
       </Toolbar>
     </AppBar>
   );
