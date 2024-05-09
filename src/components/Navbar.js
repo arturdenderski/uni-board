@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 
-function Navbar() {
+function Navbar({ onMessagesIconClick }) {
   // Retrieve user email from localStorage
   const userEmail = localStorage.getItem('userEmail');
 
@@ -12,13 +12,11 @@ function Navbar() {
     <AppBar position="static">
       <Toolbar>
         {/* UNIBOARD text on the left, wrapped with Link */}
-        
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
           <Link to="/search-page" style={{ textDecoration: 'none', color: 'inherit' }}>
             UNIBOARD
-
           </Link>
-          </Typography>
+        </Typography>
 
         {/* User email */}
         <Typography variant="body1" sx={{ marginRight: 2 }}>
@@ -26,14 +24,16 @@ function Navbar() {
         </Typography>
 
         {/* Messages icon */}
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={onMessagesIconClick}>
           <MailIcon />
         </IconButton>
 
         {/* Profile icon */}
-        <IconButton color="inherit">
-          <AccountCircleIcon />
-        </IconButton>
+        <Link to='/profile-page' style={{ textDecoration: 'none', color: 'inherit' }}>
+          <IconButton color="inherit">
+            <AccountCircleIcon />
+          </IconButton>
+        </Link>
       </Toolbar>
     </AppBar>
   );
