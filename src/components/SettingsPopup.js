@@ -20,20 +20,17 @@ function SettingsPopup({ open, onClose }) {
   }, [open]);
 
   const handleSave = () => {
-    // Handle saving changes if needed
-    // For example, if you decide to add editable fields
-    // Retrieve the updated values and save them to localStorage
     onClose();
   };
 
   const handleImageChange = (event) => {
-    // Handle image upload if needed
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Settings</DialogTitle>
       <DialogContent>
+      <img src='profilePicture1.png' alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '16px' }} />
       <Typography variant="subtitle1" gutterBottom>Name:</Typography>
         <Typography variant="body1" gutterBottom>{name}</Typography>
 
