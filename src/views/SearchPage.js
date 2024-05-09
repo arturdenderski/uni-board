@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Divider,
   Typography,
@@ -13,6 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import PostList from '../components/PostList';
 import MessageBox from '../components/MessageBox';
 import MessagesDrawer from '../components/MessagesDrawer';
+import { useNavigate } from 'react-router-dom';
 
 function SearchPage() {
   const [filters, setFilters] = useState({
@@ -20,6 +21,13 @@ function SearchPage() {
     min: '',
     max: '',
   });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('loggedin') === '0') {
+      navigate('/');
+    }
+  }, []);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);

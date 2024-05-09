@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Button, Container, Box, TextField } from '@mui/material';
 
@@ -7,11 +7,11 @@ function MainPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  if (localStorage.getItem('loggedin') == '1') {
-    navigate('/search-page');
-    // window.href = '/search-page';
-    return;
-  }
+  useEffect(() => {
+    if (localStorage.getItem('loggedin') == '1') {
+      navigate('/search-page');
+    }
+  }, []);
 
   const handleLogin = () => {
     // Dummy data for login

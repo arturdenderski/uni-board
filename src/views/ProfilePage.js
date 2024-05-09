@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import {
   Typography,
@@ -21,6 +21,12 @@ function ProfilePage() {
   const [openSettings, setOpenSettings] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('loggedin') === '0') {
+      navigate('/');
+    }
+  }, []);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
