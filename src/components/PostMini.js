@@ -65,7 +65,7 @@ const PostMini = ({
             >
               <Grid style={{ flexGrow: '1' }}>
                 <Typography variant="subtitle1" component="div">
-                  {price}
+                  {price}€
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {author}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Divider,
   Typography,
@@ -9,34 +9,37 @@ import {
   Paper,
 } from '@mui/material';
 import Navbar from '../components/Navbar';
-import PostMini from '../components/PostMini';
 import SearchIcon from '@mui/icons-material/Search';
-
-const posts = [
-  {
-    id: 1,
-    photo: 'coconut.jpg',
-    title: 'Coconut for sale',
-    description: 'Description for Post 1',
-    authorId: 1,
-    location: 'Hempshire',
-    price: '$10',
-  },
-  {
-    id: 2,
-    photo: 'coconut.jpg',
-    title: 'Another Coconut for sale',
-    description: 'Description for Post 2',
-    authorId: 2,
-    location: 'Hempshire',
-    price: '$10',
-  },
-];
-
-const users = JSON.parse(localStorage.getItem('users')) || [];
-console.log(users);
+import PostList from '../components/PostList';
 
 function SearchPage() {
+  const [filters, setFilters] = useState({
+    search: '',
+    min: '',
+    max: '',
+  });
+
+  const updateSearch = (event) => {
+    setFilters({
+      ...filters,
+      search: event.target.value,
+    });
+  };
+
+  const updateMax = (event) => {
+    setFilters({
+      ...filters,
+      max: event.target.value,
+    });
+  };
+
+  const updateMin = (event) => {
+    setFilters({
+      ...filters,
+      min: event.target.value,
+    });
+  };
+
   return (
     <Grid container spacing={2}>
       {/* Navbar */}
@@ -55,6 +58,7 @@ function SearchPage() {
             <Typography variant="h6">Search</Typography>
             <div>
               <TextField
+                id="searchbar"
                 sx={{ m: 1, width: '92%' }}
                 InputProps={{
                   startAdornment: (
@@ -63,6 +67,7 @@ function SearchPage() {
                     </InputAdornment>
                   ),
                 }}
+                onChange={updateSearch}
               />
             </div>
 
@@ -77,6 +82,7 @@ function SearchPage() {
                     <InputAdornment position="start">€</InputAdornment>
                   ),
                 }}
+                onChange={updateMin}
                 sx={{ width: '45%', paddingRight: '15px' }}
               />
               <TextField
@@ -87,6 +93,7 @@ function SearchPage() {
                     <InputAdornment position="start">€</InputAdornment>
                   ),
                 }}
+                onChange={updateMax}
                 sx={{ width: '45%' }}
               />
             </Grid>
@@ -95,22 +102,7 @@ function SearchPage() {
       </Grid>
 
       {/* Offer List */}
-      <Grid item xs={6}>
-        <Stack container spacing={2} style={{ padding: '20px' }}>
-          {posts.map((post) => (
-            <PostMini
-              key={post.id}
-              photo={post.photo}
-              title={post.title}
-              description={post.description}
-              author={users.find((user) => user.id === post.authorId).name}
-              authorId={post.authorId}
-              location={post.location}
-              price={post.price}
-            />
-          ))}
-        </Stack>
-      </Grid>
+      <PostList filters={filters} />
     </Grid>
   );
 }
