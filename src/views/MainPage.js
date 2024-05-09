@@ -7,6 +7,12 @@ function MainPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  if (localStorage.getItem('loggedin') == '1') {
+    navigate('/search-page');
+    // window.href = '/search-page';
+    return;
+  }
+
   const handleLogin = () => {
     // Dummy data for login
     const dummyEmail = 'dummy@ua.pt';
@@ -21,7 +27,8 @@ function MainPage() {
       localStorage.setItem('userProfilePicture', 'path/to/profile-picture.jpg');
 
       // Navigate to profile page if login is successful
-      navigate('/profile-page');
+      localStorage.setItem('loggedin', '1');
+      navigate('/search-page');
     } else {
       // Display an error message if login fails
       alert('Invalid email or password');
@@ -29,35 +36,38 @@ function MainPage() {
   };
 
   return (
-    <div className='container' style={{ backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
-      <Container maxWidth='sm'>
+    <div
+      className="container"
+      style={{ backgroundColor: '#f0f0f0', minHeight: '100vh' }}
+    >
+      <Container maxWidth="sm">
         <Box sx={{ textAlign: 'center', paddingTop: '20vh' }}>
-          <Typography variant='h3' gutterBottom>
+          <Typography variant="h3" gutterBottom>
             UNIBOARD
           </Typography>
-          <Typography variant='body1' paragraph>
+          <Typography variant="body1" paragraph>
             An open-source bulletin board for university students
           </Typography>
           <TextField
-            id='email'
-            label='Email'
-            variant='outlined'
+            id="email"
+            label="Email"
+            variant="outlined"
             fullWidth
-            margin='normal'
+            margin="normal"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            id='password'
-            label='Password'
-            type='password'
-            variant='outlined'
+            id="password"
+            label="Password"
+            type="password"
+            variant="outlined"
             fullWidth
-            margin='normal'
+            margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button variant='contained' color='primary' onClick={handleLogin}>
+          <Button variant="contained" color="primary" onClick={handleLogin}>
             Login
           </Button>
         </Box>

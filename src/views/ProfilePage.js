@@ -38,6 +38,7 @@ function ProfilePage() {
   };
 
   const handleConfirmLogout = () => {
+    localStorage.setItem('loggedin', '0');
     navigate('/');
   };
 
@@ -73,7 +74,19 @@ function ProfilePage() {
           paddingBottom: '20px',
         }}
       >
-        <Grid item xs={6}>
+        <Typography
+          variant="h6"
+          gutterBottom
+          style={{ marginTop: '20px', marginLeft: '20px' }}
+        >
+          Your Posts
+        </Typography>
+
+        <Grid
+          item
+          xs={6}
+          sx={{ marginLeft: 'auto', marginRight: 'auto', width: '50%' }}
+        >
           <Stack container spacing={2} style={{ padding: '20px' }}>
             {posts.map((post) => (
               <PostMini
@@ -86,15 +99,17 @@ function ProfilePage() {
                 price={post.price}
               />
             ))}
+            <Button
+              variant="outlined"
+              sx={{ fontSize: 24, fontWeight: 'normal' }}
+              onClick={() => {
+                console.log('Added a post');
+              }}
+            >
+              +
+            </Button>
           </Stack>
         </Grid>
-        <Typography
-          variant="h6"
-          gutterBottom
-          style={{ marginTop: '20px', marginLeft: '20px' }}
-        >
-          Your Posts
-        </Typography>
 
         <div style={{ position: 'absolute', bottom: '40px', left: '20px' }}>
           <IconButton color="primary" onClick={handleOpenSettings}>
