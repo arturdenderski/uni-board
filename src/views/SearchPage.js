@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Divider,
   Typography,
@@ -9,13 +9,23 @@ import {
   Paper,
 } from '@mui/material';
 import Navbar from '../components/Navbar';
-import PostMini from '../components/PostMini';
 import SearchIcon from '@mui/icons-material/Search';
-
-const posts = JSON.parse(localStorage.getItem('posts')) || [];
-const users = JSON.parse(localStorage.getItem('users')) || [];
+import PostList from '../components/PostList';
 
 function SearchPage() {
+  const [filters, setFilters] = useState({
+    search: '',
+    min: 0,
+    max: 20,
+  });
+
+  const updateSearch = (event) => {
+    setFilters({
+      ...filters,
+      search: event.target.value,
+    });
+  };
+
   return (
     <Grid container spacing={2}>
       {/* Navbar */}
@@ -34,6 +44,7 @@ function SearchPage() {
             <Typography variant="h6">Search</Typography>
             <div>
               <TextField
+                id="searchbar"
                 sx={{ m: 1, width: '92%' }}
                 InputProps={{
                   startAdornment: (
@@ -42,6 +53,7 @@ function SearchPage() {
                     </InputAdornment>
                   ),
                 }}
+                onChange={updateSearch}
               />
             </div>
 
@@ -74,22 +86,7 @@ function SearchPage() {
       </Grid>
 
       {/* Offer List */}
-      <Grid item xs={6}>
-        <Stack container spacing={2} style={{ padding: '20px' }}>
-          {posts.map((post) => (
-            <PostMini
-              key={post.id}
-              photo={post.photo}
-              title={post.title}
-              description={post.description}
-              author={users.find((user) => user.id === post.authorId).name}
-              authorId={post.authorId}
-              location={post.location}
-              price={post.price}
-            />
-          ))}
-        </Stack>
-      </Grid>
+      <PostList filters={filters} />
     </Grid>
   );
 }
