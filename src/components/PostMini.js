@@ -20,7 +20,6 @@ const PostMini = ({ photo, title, description, location, author, price }) => {
         p: 2,
         margin: 'auto',
         borderRadius: '10px',
-        maxWidth: 500,
         flexGrow: 1,
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
