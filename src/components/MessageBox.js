@@ -14,7 +14,7 @@ function MessageBox({ userId, onClose }) {
     if (userId) {
       // Retrieve user information from local storage using the user ID
       const users = JSON.parse(localStorage.getItem('users')) || [];
-      const currentUser = users.find(user => user.id === userId);
+      const currentUser = users.find((user) => user.id === userId);
       setUser(currentUser);
 
       // Retrieve messages for the user from local storage
@@ -35,7 +35,12 @@ function MessageBox({ userId, onClose }) {
 
   const handleMessageSend = () => {
     if (messageInput.trim() !== '') {
-      const newMessage = { id: messages.length + 1, text: messageInput, sender: 'user', timestamp: getCurrentTime() };
+      const newMessage = {
+        id: messages.length + 1,
+        text: messageInput,
+        sender: 'user',
+        timestamp: getCurrentTime(),
+      };
       const updatedMessages = [...messages, newMessage];
       setMessages(updatedMessages);
       setMessageInput('');
@@ -47,19 +52,46 @@ function MessageBox({ userId, onClose }) {
   };
 
   return (
-    <Paper style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 500, padding: '10px', backgroundColor: '#f0f0f0', display: user ? 'block' : 'none' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Paper
+      style={{
+        position: 'fixed',
+        bottom: 0,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 500,
+        padding: '10px',
+        backgroundColor: '#f0f0f0',
+        display: user ? 'block' : 'none',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="subtitle1">
           Chatting with: {user ? user.name : ''}
         </Typography>
-        <IconButton onClick={() => setUser(null)}>
+        <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </div>
-      {messages.map(message => (
-        <div key={message.id} style={{ textAlign: message.sender === 'user' ? 'right' : 'left', marginTop: 10 }}>
-          <Typography variant="body1" style={{ marginBottom: 5 }}>{message.text}</Typography>
-          <Typography variant="caption" color="textSecondary">{message.timestamp}</Typography>
+      {messages.map((message) => (
+        <div
+          key={message.id}
+          style={{
+            textAlign: message.sender === 'user' ? 'right' : 'left',
+            marginTop: 10,
+          }}
+        >
+          <Typography variant="body1" style={{ marginBottom: 5 }}>
+            {message.text}
+          </Typography>
+          <Typography variant="caption" color="textSecondary">
+            {message.timestamp}
+          </Typography>
         </div>
       ))}
       <div style={{ display: 'flex', alignItems: 'center', marginTop: 10 }}>

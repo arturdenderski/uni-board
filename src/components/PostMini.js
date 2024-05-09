@@ -23,11 +23,11 @@ const PostMini = ({
   authorId,
   price,
 }) => {
-  const [boxId, setBoxId] = useState(0);
+  const [boxId, setBoxId] = useState(-1);
 
   return (
     <div>
-      <MessageBox userId={boxId} onClose={() => setBoxId(0)} />
+      <MessageBox userId={boxId} onClose={() => setBoxId(-1)} />
       <Paper
         sx={{
           p: 2,

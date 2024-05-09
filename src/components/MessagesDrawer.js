@@ -12,7 +12,11 @@ function MessagesDrawer({ open, onClose, onUserSelect }) {
     <Drawer anchor="right" open={open} onClose={onClose} width={300}>
       <List>
         {users.map((user) => (
-          <ListItem button key={user.id} onClick={() => handleUserClick(user.id)}>
+          <ListItem
+            button
+            key={user.id}
+            onClick={() => handleUserClick(user.id)}
+          >
             <ListItemText primary={user.name} />
           </ListItem>
         ))}
