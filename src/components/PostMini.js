@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import MessageBox from './MessageBox';
+import EditPostPopup from './EditPostPopup';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -15,6 +16,7 @@ const Img = styled('img')({
 });
 
 const PostMini = ({
+  id,
   photo,
   title,
   description,
@@ -25,6 +27,18 @@ const PostMini = ({
   setUser,
 }) => {
   const [boxId, setBoxId] = useState(-1);
+  const [openEditPopup, setOpenEditPopup] = useState(false);
+
+
+  const handleOpenEditPopup = () => {
+    setOpenEditPopup(true);
+  };
+
+  const handleCloseEditPopup = () => {
+    setOpenEditPopup(false);
+    window.location.reload();
+  };
+  
 
   return (
     <div>
@@ -38,6 +52,7 @@ const PostMini = ({
             theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         }}
       >
+        <EditPostPopup open={openEditPopup} onClose={handleCloseEditPopup} id={id}/>
         <Grid container spacing={2}>
           <Grid item>
             <Img alt="photo" src={photo} sx={{ width: 128, height: 128 }} />
@@ -83,7 +98,7 @@ const PostMini = ({
               ) : (
                 <Button
                   variant="contained"
-                  onClick={() => console.log('post edited')}
+                  onClick={handleOpenEditPopup}
                 >
                   Edit
                 </Button>
