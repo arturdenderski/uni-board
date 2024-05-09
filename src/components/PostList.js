@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import { Stack } from '@mui/material';
 import PostMini from './PostMini';
 
-function PostList({ filters }) {
+function PostList({ filters, setUser }) {
   const posts = JSON.parse(localStorage.getItem('posts')) || [];
   const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -41,6 +41,7 @@ function PostList({ filters }) {
             authorId={post.authorId}
             location={post.location}
             price={post.price}
+            setUser={setUser}
           />
         ))}
       </Stack>

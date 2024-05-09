@@ -22,12 +22,12 @@ const PostMini = ({
   author,
   authorId,
   price,
+  setUser,
 }) => {
   const [boxId, setBoxId] = useState(-1);
 
   return (
     <div>
-      <MessageBox userId={boxId} onClose={() => setBoxId(-1)} />
       <Paper
         sx={{
           p: 2,
@@ -74,7 +74,7 @@ const PostMini = ({
                   {location}
                 </Typography>
               </Grid>
-              <Button variant="contained" onClick={() => setBoxId(authorId)}>
+              <Button variant="contained" onClick={() => setUser(authorId)}>
                 Reach out
               </Button>
             </Grid>
