@@ -16,6 +16,10 @@ import MessagesDrawer from '../components/MessagesDrawer';
 import MessageBox from '../components/MessageBox';
 import { Grid, Stack } from '@mui/material';
 import PostMini from '../components/PostMini';
+import CreatePostPopup from '../components/CreatePostPopup'
+import EditPostPopup from '../components/EditPostPopup';
+
+const parsedPosts = JSON.parse(localStorage.getItem('posts')) || [];
 
 function ProfilePage() {
   const [openSettings, setOpenSettings] = useState(false);
@@ -30,6 +34,17 @@ function ProfilePage() {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [postsState, setPostsState] = useState(parsedPosts);
+  const [openPopup, setOpenPopup] = useState(false);
+
+  const handleOpenPopup = () => {
+    setOpenPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setOpenPopup(false);
+  };
+
 
   const handleOpenSettings = () => {
     setOpenSettings(true);
@@ -96,7 +111,7 @@ function ProfilePage() {
           <Stack container spacing={2} style={{ padding: '20px' }}>
             {posts.map((post) => (
               <PostMini
-                key={post.id}
+                id={post.id}
                 photo={post.photo}
                 title={post.title}
                 description={post.description}
@@ -108,14 +123,13 @@ function ProfilePage() {
             <Button
               variant="outlined"
               sx={{ fontSize: 24, fontWeight: 'normal' }}
-              onClick={() => {
-                console.log('Added a post');
-              }}
+              onClick={handleOpenPopup}
             >
               +
             </Button>
           </Stack>
         </Grid>
+        <CreatePostPopup open={openPopup} onClose={handleClosePopup} />
 
         <div style={{ position: 'absolute', bottom: '40px', left: '20px' }}>
           <IconButton color="primary" onClick={handleOpenSettings}>
