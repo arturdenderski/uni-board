@@ -12,29 +12,8 @@ import Navbar from '../components/Navbar';
 import PostMini from '../components/PostMini';
 import SearchIcon from '@mui/icons-material/Search';
 
-const posts = [
-  {
-    id: 1,
-    photo: 'coconut.jpg',
-    title: 'Coconut for sale',
-    description: 'Description for Post 1',
-    authorId: 1,
-    location: 'Hempshire',
-    price: '$10',
-  },
-  {
-    id: 2,
-    photo: 'coconut.jpg',
-    title: 'Another Coconut for sale',
-    description: 'Description for Post 2',
-    authorId: 2,
-    location: 'Hempshire',
-    price: '$10',
-  },
-];
-
+const posts = JSON.parse(localStorage.getItem('posts')) || [];
 const users = JSON.parse(localStorage.getItem('users')) || [];
-console.log(users);
 
 function SearchPage() {
   return (
