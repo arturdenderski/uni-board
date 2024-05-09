@@ -1,6 +1,7 @@
 import React from 'react';
 import PostMini from '../components/PostMini';
 import { Stack } from '@mui/material';
+import Navbar from '../components/Navbar';
 
 function SearchPage() {
   const posts = [
@@ -26,20 +27,23 @@ function SearchPage() {
   ];
 
   return (
-    <Stack container spacing={2} style={{ padding: '20px' }}>
-      {posts.map((post) => (
-        <PostMini
-          key={post.id}
-          photo={post.photo}
-          title={post.title}
-          description={post.description}
-          author={post.author}
-          location={post.location}
-          price={post.price}
-        />
-      ))}
-    </Stack>
+    <div>
+      <Navbar />
+      <Stack container spacing={2} style={{ padding: '20px' }}>
+        {posts.map((post) => (
+          <PostMini
+            key={post.id}
+            photo={post.photo}
+            title={post.title}
+            description={post.description}
+            author={post.author}
+            location={post.location}
+            price={post.price}
+          />
+        ))}
+      </Stack>
+    </div>
   );
 }
 
-export { SearchPage };
+export default SearchPage;
