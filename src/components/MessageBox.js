@@ -52,7 +52,7 @@ function MessageBox({ userId, onClose }) {
         <Typography variant="subtitle1">
           Chatting with: {user ? user.name : ''}
         </Typography>
-        <IconButton onClick={onClose}>
+        <IconButton onClick={() => setUser(null)}>
           <CloseIcon />
         </IconButton>
       </div>
