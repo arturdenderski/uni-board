@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import {
-  Typography,
-  IconButton,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import SettingsPopup from '../components/SettingsPopup';
+import { Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MessagesDrawer from '../components/MessagesDrawer';
 import MessageBox from '../components/MessageBox';
 import { Grid, Stack } from '@mui/material';
 import PostMini from '../components/PostMini';
-import CreatePostPopup from '../components/CreatePostPopup'
-import EditPostPopup from '../components/EditPostPopup';
+import CreatePostPopup from '../components/CreatePostPopup';
 
 const parsedPosts = JSON.parse(localStorage.getItem('posts')) || [];
 
 function ProfilePage() {
-  const [openSettings, setOpenSettings] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const navigate = useNavigate();
 
@@ -45,22 +33,8 @@ function ProfilePage() {
     setOpenPopup(false);
   };
 
-
-  const handleOpenSettings = () => {
-    setOpenSettings(true);
-  };
-
-  const handleCloseSettings = () => {
-    setOpenSettings(false);
-  };
-
   const handleLogout = () => {
     setOpenConfirmation(true);
-  };
-
-  const handleConfirmLogout = () => {
-    localStorage.setItem('loggedin', '0');
-    navigate('/');
   };
 
   const handleCancelLogout = () => {
@@ -130,43 +104,6 @@ function ProfilePage() {
           </Stack>
         </Grid>
         <CreatePostPopup open={openPopup} onClose={handleClosePopup} />
-
-        <div style={{ position: 'absolute', bottom: '40px', left: '20px' }}>
-          <IconButton color="primary" onClick={handleOpenSettings}>
-            <SettingsIcon />
-          </IconButton>
-        </div>
-
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '20px',
-            right: '20px',
-            marginBottom: '20px',
-          }}
-        >
-          <Button variant="contained" color="primary" onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
-
-        <SettingsPopup open={openSettings} onClose={handleCloseSettings} />
-
-        <Dialog open={openConfirmation} onClose={handleCancelLogout}>
-          <DialogTitle>Confirm Logout</DialogTitle>
-          <DialogContent>
-            <Typography>Are you sure you want to logout?</Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleConfirmLogout} color="primary">
-              Yes
-            </Button>
-            <Button onClick={handleCancelLogout} color="primary" autoFocus>
-              No
-            </Button>
-          </DialogActions>
-        </Dialog>
-
         <MessageBox userId={selectedUser} onClose={() => setSelectedUser(-1)} />
       </div>
     </div>

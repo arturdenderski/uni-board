@@ -1,0 +1,18 @@
+#navbar-toolbar {
+  .tab-active {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+  }
+}
+
+.nav-tab {
+  font-size: 20px;
+
+  text-decoration: none;
+  color: inherit;
+  margin-right: 30px;
+}
+
+.nav-tab:hover {
+  color: rgb(0, 56, 121);
+}
