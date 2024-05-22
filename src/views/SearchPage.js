@@ -30,7 +30,7 @@ function SearchPage() {
   }, []);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const updateSearch = (event) => {
     setFilters({
@@ -58,7 +58,7 @@ function SearchPage() {
   };
 
   const handleUserSelect = (user) => {
-    setSelectedUser(user);
+    setSelectedPost(user);
     toggleDrawer();
   };
 
@@ -127,9 +127,9 @@ function SearchPage() {
           </Stack>
         </Paper>
       </Grid>
-      <MessageBox userId={selectedUser} onClose={() => setSelectedUser(-1)} />
+      <MessageBox postId={selectedPost} onClose={() => setSelectedPost(-1)} />
       {/* Offer List */}
-      <PostList filters={filters} setUser={setSelectedUser} />
+      <PostList filters={filters} setPost={setSelectedPost} />
     </Grid>
   );
 }

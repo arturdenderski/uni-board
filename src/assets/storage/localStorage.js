@@ -65,7 +65,7 @@ function initializePostsDatabase() {
   }
   const initialPosts = [
     {
-      id: 0,
+      id: 16,
       title: 'Smartphone',
       photo: 'smartphone.jpg',
       description:

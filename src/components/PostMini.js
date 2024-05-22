@@ -24,7 +24,7 @@ const PostMini = ({
   author,
   authorId,
   price,
-  setUser,
+  setPost,
 }) => {
   const [boxId, setBoxId] = useState(-1);
   const [openEditPopup, setOpenEditPopup] = useState(false);
@@ -38,7 +38,6 @@ const PostMini = ({
     setOpenEditPopup(false);
     window.location.reload();
   };
-  
 
   return (
     <div>
@@ -92,7 +91,7 @@ const PostMini = ({
                 </Typography>
               </Grid>
               {authorId !== -1 ? (
-                <Button variant="contained" onClick={() => setUser(authorId)}>
+                <Button variant="contained" onClick={() => setPost(id)}>
                   Reach out
                 </Button>
               ) : (
