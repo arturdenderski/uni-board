@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import Avatar from '@mui/material/Avatar';
+import '../style/Navbar.css';
 
 function Navbar({ onMessagesIconClick }) {
   // Retrieve user email from localStorage
@@ -10,29 +12,56 @@ function Navbar({ onMessagesIconClick }) {
 
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar id="navbar-toolbar">
         {/* UNIBOARD text on the left, wrapped with Link */}
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          <Link to="/search-page" style={{ textDecoration: 'none', color: 'inherit' }}>
-            UNIBOARD
+          <Link
+            to="/"
+            style={{
+              fontSize: '30px',
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
+          >
+            U N I B O A R D
           </Link>
         </Typography>
 
-        {/* User email */}
-        <Typography variant="body1" sx={{ marginRight: 2 }}>
-          {userEmail}
-        </Typography>
+        <Link className="nav-tab" to="/search-page">
+          Search
+        </Link>
+
+        <Link className="nav-tab" to="/profile-page">
+          Your Posts
+        </Link>
+
+        <Link className="nav-tab" to="/profile-page">
+          + Create
+        </Link>
 
         {/* Messages icon */}
-        <IconButton color="inherit" onClick={onMessagesIconClick}>
-          <MailIcon />
-        </IconButton>
+        <Link className="nav-tab" onClick={onMessagesIconClick}>
+          <ForumOutlinedIcon sx={{ marginTop: '10px' }} />
+        </Link>
 
-        {/* Profile icon */}
-        <Link to='/profile-page' style={{ textDecoration: 'none', color: 'inherit' }}>
-          <IconButton color="inherit">
-            <AccountCircleIcon />
-          </IconButton>
+        {/* Profile */}
+        <Link
+          className="nav-tab"
+          to="/profile-page"
+          style={{
+            display: 'flex',
+          }}
+        >
+          <Typography
+            variant="body1"
+            sx={{ marginTop: '7%', marginRight: '20px' }}
+          >
+            {userEmail}
+          </Typography>
+          <Avatar
+            src="profile-pic1.jpg"
+            sx={{ width: '50px', height: '50px' }}
+          ></Avatar>
         </Link>
       </Toolbar>
     </AppBar>
