@@ -7,6 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  zoom: 1.75; 
+  -moz-transform: scale(1.75); 
+  -moz-transform-origin: 0 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
