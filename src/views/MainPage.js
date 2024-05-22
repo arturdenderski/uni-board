@@ -24,7 +24,7 @@ function MainPage() {
       localStorage.setItem('userEmail', email);
       localStorage.setItem('userName', 'John');
       localStorage.setItem('userSurname', 'Doe');
-      localStorage.setItem('userProfilePicture', 'path/to/profile-picture.jpg');
+      localStorage.setItem('userProfilePicture', '');
 
       // Navigate to profile page if login is successful
       localStorage.setItem('loggedin', '1');

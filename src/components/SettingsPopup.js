@@ -1,6 +1,12 @@
 // SettingsPopup.js
 import React, { useEffect, useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, Typography } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  Typography,
+} from '@mui/material';
 
 function SettingsPopup({ open, onClose }) {
   const [name, setName] = useState('');
@@ -24,28 +30,62 @@ function SettingsPopup({ open, onClose }) {
   };
 
   const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        localStorage.setItem('userProfilePicture', reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Settings</DialogTitle>
       <DialogContent>
-      <img src='profilePicture1.png' alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '16px' }} />
-      <Typography variant="subtitle1" gutterBottom>Name:</Typography>
-        <Typography variant="body1" gutterBottom>{name}</Typography>
+        <img
+          src="profilePicture1.png"
+          alt="Profile"
+          style={{
+            width: '50px',
+            height: '50px',
+            borderRadius: '50%',
+            marginRight: '16px',
+          }}
+        />
+        <Typography variant="subtitle1" gutterBottom>
+          Name:
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {name}
+        </Typography>
 
-        <Typography variant="subtitle1" gutterBottom>Surname:</Typography>
-        <Typography variant="body1" gutterBottom>{surname}</Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Surname:
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {surname}
+        </Typography>
 
-        <Typography variant="subtitle1" gutterBottom>Email:</Typography>
-        <Typography variant="body1" gutterBottom>{email}</Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Email:
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {email}
+        </Typography>
         <input
           type="file"
           accept="image/*"
           onChange={handleImageChange}
           style={{ marginTop: '16px' }}
         />
-        <Button variant="contained" color="primary" onClick={handleSave} style={{ marginTop: '16px' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+          style={{ marginTop: '16px' }}
+        >
           Save
         </Button>
       </DialogContent>

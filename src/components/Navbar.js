@@ -13,6 +13,8 @@ function Navbar({ onMessagesIconClick }) {
   const [settingsOpen, setSettingsOpen] = React.useState(false);
   const [logoutOpen, setLogoutOpen] = React.useState(false);
 
+  const profilePic = localStorage.getItem('userProfilePicture');
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -96,7 +98,7 @@ function Navbar({ onMessagesIconClick }) {
                   {userEmail}
                 </Typography>
                 <Avatar
-                  src="profile-pic1.jpg"
+                  src={profilePic}
                   sx={{ width: '50px', height: '50px' }}
                 ></Avatar>
               </Link>
