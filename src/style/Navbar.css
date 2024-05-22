@@ -7,7 +7,12 @@
     margin-right: 30px;
   }
 
+  .tab-active {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+  }
+
   .nav-tab:hover {
-    color: black;
+    color: rgb(0, 56, 121);
   }
 }

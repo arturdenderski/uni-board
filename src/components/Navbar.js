@@ -1,37 +1,47 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import Avatar from '@mui/material/Avatar';
 import '../style/Navbar.css';
 
 function Navbar({ onMessagesIconClick }) {
-  // Retrieve user email from localStorage
   const userEmail = localStorage.getItem('userEmail');
+  let location = useLocation();
+
+  let locationIdMap = {
+    '/search-page': 'search-tab',
+    '/profile-page': 'profile-tab',
+  };
+
+  useEffect(() => {
+    let tagId = locationIdMap[location.pathname];
+    console.log(location.pathname);
+    document.getElementById(tagId)?.classList.add('tab-active');
+  });
 
   return (
     <AppBar position="static">
       <Toolbar id="navbar-toolbar">
         {/* UNIBOARD text on the left, wrapped with Link */}
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          <Link
-            to="/"
-            style={{
-              fontSize: '30px',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-          >
-            U N I B O A R D
-          </Link>
+        <Typography
+          variant="h6"
+          sx={{
+            flexGrow: 1,
+            fontSize: '30px',
+            textDecoration: 'none',
+            color: 'inherit',
+            userSelect: 'none',
+          }}
+        >
+          U N I B O A R D
         </Typography>
 
-        <Link className="nav-tab" to="/search-page">
-          Search
+        <Link className="nav-tab" id="search-tab" to="/search-page">
+          Browse
         </Link>
 
-        <Link className="nav-tab" to="/profile-page">
+        <Link className="nav-tab" id="profile-tab" to="/profile-page">
           Your Posts
         </Link>
 
@@ -47,6 +57,7 @@ function Navbar({ onMessagesIconClick }) {
         {/* Profile */}
         <Link
           className="nav-tab"
+          id="profile-tab"
           to="/profile-page"
           style={{
             display: 'flex',
