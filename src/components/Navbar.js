@@ -6,21 +6,15 @@ import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import Avatar from '@mui/material/Avatar';
 import '../style/Navbar.css';
 import SettingsPopup from './SettingsPopup.js';
+import LogoutConfirmationPopup from './LogoutConfirmationPopup.js';
 
 function Navbar({ onMessagesIconClick }) {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  const [logoutOpen, setLogoutOpen] = React.useState(false);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -42,6 +36,7 @@ function Navbar({ onMessagesIconClick }) {
   });
 
   const handleLogout = () => {
+    setLogoutOpen(true);
     handleCloseUserMenu();
   };
 
@@ -136,6 +131,12 @@ function Navbar({ onMessagesIconClick }) {
         open={settingsOpen}
         onClose={() => {
           setSettingsOpen(false);
+        }}
+      />
+      <LogoutConfirmationPopup
+        open={logoutOpen}
+        handleCancel={() => {
+          setLogoutOpen(false);
         }}
       />
     </>
