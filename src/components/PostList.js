@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import { Stack } from '@mui/material';
 import PostMini from './PostMini';
 
-function PostList({ filters, setUser }) {
+function PostList({ filters, setPost }) {
   const posts = JSON.parse(localStorage.getItem('posts')) || [];
   const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -33,7 +33,7 @@ function PostList({ filters, setUser }) {
       <Stack container spacing={2} style={{ padding: '20px' }}>
         {filteredPosts.map((post) => (
           <PostMini
-            key={post.id}
+            id={post.id}
             photo={post.photo}
             title={post.title}
             description={post.description}
@@ -41,7 +41,7 @@ function PostList({ filters, setUser }) {
             authorId={post.authorId}
             location={post.location}
             price={post.price}
-            setUser={setUser}
+            setPost={setPost}
           />
         ))}
       </Stack>
