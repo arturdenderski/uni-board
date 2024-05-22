@@ -2,27 +2,22 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import {
   Typography,
-  IconButton,
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import SettingsPopup from '../components/SettingsPopup';
 import { useNavigate } from 'react-router-dom';
 import MessagesDrawer from '../components/MessagesDrawer';
 import MessageBox from '../components/MessageBox';
 import { Grid, Stack } from '@mui/material';
 import PostMini from '../components/PostMini';
-import CreatePostPopup from '../components/CreatePostPopup'
-import EditPostPopup from '../components/EditPostPopup';
+import CreatePostPopup from '../components/CreatePostPopup';
 
 const parsedPosts = JSON.parse(localStorage.getItem('posts')) || [];
 
 function ProfilePage() {
-  const [openSettings, setOpenSettings] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const navigate = useNavigate();
 
@@ -43,15 +38,6 @@ function ProfilePage() {
 
   const handleClosePopup = () => {
     setOpenPopup(false);
-  };
-
-
-  const handleOpenSettings = () => {
-    setOpenSettings(true);
-  };
-
-  const handleCloseSettings = () => {
-    setOpenSettings(false);
   };
 
   const handleLogout = () => {
@@ -131,12 +117,6 @@ function ProfilePage() {
         </Grid>
         <CreatePostPopup open={openPopup} onClose={handleClosePopup} />
 
-        <div style={{ position: 'absolute', bottom: '40px', left: '20px' }}>
-          <IconButton color="primary" onClick={handleOpenSettings}>
-            <SettingsIcon />
-          </IconButton>
-        </div>
-
         <div
           style={{
             position: 'absolute',
@@ -149,8 +129,6 @@ function ProfilePage() {
             Logout
           </Button>
         </div>
-
-        <SettingsPopup open={openSettings} onClose={handleCloseSettings} />
 
         <Dialog open={openConfirmation} onClose={handleCancelLogout}>
           <DialogTitle>Confirm Logout</DialogTitle>
