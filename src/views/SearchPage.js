@@ -32,6 +32,13 @@ function SearchPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
 
+  useEffect(() => {
+    if(drawerOpen === true)
+    {
+      setSelectedPost(-1);
+    }
+  }, [drawerOpen]);
+
   const updateSearch = (event) => {
     setFilters({
       ...filters,

@@ -21,7 +21,7 @@ function ProfilePage() {
   }, []);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
   const [postsState, setPostsState] = useState(parsedPosts);
   const [openPopup, setOpenPopup] = useState(false);
 
@@ -46,9 +46,16 @@ function ProfilePage() {
   };
 
   const handleUserSelect = (user) => {
-    setSelectedUser(user);
+    setSelectedPost(user);
     toggleDrawer();
   };
+
+  useEffect(() => {
+    if(drawerOpen === true)
+    {
+      setSelectedPost(-1);
+    }
+  }, [drawerOpen]);
 
   let posts = JSON.parse(localStorage.getItem('myposts'));
   const users = JSON.parse(localStorage.getItem('users'));
@@ -104,7 +111,7 @@ function ProfilePage() {
           </Stack>
         </Grid>
         <CreatePostPopup open={openPopup} onClose={handleClosePopup} />
-        <MessageBox userId={selectedUser} onClose={() => setSelectedUser(-1)} />
+        <MessageBox postId={selectedPost} onClose={() => setSelectedPost(-1)} />
       </div>
     </div>
   );
