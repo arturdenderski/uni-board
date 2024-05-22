@@ -1,11 +1,32 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Tooltip, Menu, Toolbar, Typography } from '@mui/material';
+import { IconButton, MenuItem } from '@mui/material';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import Avatar from '@mui/material/Avatar';
 import '../style/Navbar.css';
 
+const settings = ['Settings', 'Logout'];
+
 function Navbar({ onMessagesIconClick }) {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   const userEmail = localStorage.getItem('userEmail');
   let location = useLocation();
 
@@ -55,25 +76,49 @@ function Navbar({ onMessagesIconClick }) {
         </Link>
 
         {/* Profile */}
-        <Link
-          className="nav-tab"
-          id="profile-tab"
-          to="/profile-page"
-          style={{
-            display: 'flex',
-          }}
-        >
-          <Typography
-            variant="body1"
-            sx={{ marginTop: '7%', marginRight: '20px' }}
+        <Box id="profile-tab">
+          <Tooltip
+            title="Open settings"
+            style={{
+              display: 'flex',
+            }}
           >
-            {userEmail}
-          </Typography>
-          <Avatar
-            src="profile-pic1.jpg"
-            sx={{ width: '50px', height: '50px' }}
-          ></Avatar>
-        </Link>
+            <Link className="nav-tab" onClick={handleOpenUserMenu}>
+              <Typography
+                variant="body1"
+                sx={{ marginTop: '7%', marginRight: '20px' }}
+              >
+                {userEmail}
+              </Typography>
+              <Avatar
+                src="profile-pic1.jpg"
+                sx={{ width: '50px', height: '50px' }}
+              ></Avatar>
+            </Link>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting) => (
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
       </Toolbar>
     </AppBar>
   );
