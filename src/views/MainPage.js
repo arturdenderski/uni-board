@@ -59,12 +59,12 @@ function MainPage() {
 
   return (
     <div
-      className="container"
+      className="container login-container"
       style={{ backgroundColor: '#f0f0f0', minHeight: '100vh' }}
     >
-      <Container maxWidth="sm">
-        <Box sx={{ textAlign: 'center', paddingTop: '20vh' }}>
-          <Typography variant="h3" gutterBottom>
+      <Container className="login-box" maxWidth="sm">
+        <Box sx={{ textAlign: 'center', padding: '50px' }}>
+          <Typography variant="h2" gutterBottom>
             UNIBOARD
           </Typography>
           <Typography variant="body1" paragraph>
