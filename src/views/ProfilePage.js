@@ -31,6 +31,7 @@ function ProfilePage() {
 
   const handleClosePopup = () => {
     setOpenPopup(false);
+    setPosts(JSON.parse(localStorage.getItem('myposts')));
   };
 
   const handleLogout = () => {

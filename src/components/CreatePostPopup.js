@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, Typography, TextField } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  Typography,
+  TextField,
+} from '@mui/material';
 
 function CreatePostPopup({ open, onClose }) {
   const [title, setTitle] = useState('');
@@ -15,7 +22,9 @@ function CreatePostPopup({ open, onClose }) {
     // Check if price matches the nn.nn format
     if (!priceRegex.test(price)) {
       // Display an error message or handle invalid input
-      alert('Price format should be any number with two digits after the decimal point.');
+      alert(
+        'Price format should be any number with two digits after the decimal point.'
+      );
       return;
     }
 
@@ -43,7 +52,7 @@ function CreatePostPopup({ open, onClose }) {
     setLocation('');
     setPrice('');
     setPhoto(null);
-    
+
     // Close the popup
     onClose();
   };
