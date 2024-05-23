@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, TextField } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  TextField,
+} from '@mui/material';
 
 function EditPostPopup({ id, open, onClose }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState('');
 
   useEffect(() => {
     console.log(id);
@@ -22,9 +28,8 @@ function EditPostPopup({ id, open, onClose }) {
       // You might need to load photo data differently if it's stored differently
       // For simplicity, this example assumes it's stored as a URL
       setPhoto(post.photo);
-    }
-    else {
-        return;
+    } else {
+      return;
     }
   }, [id]);
 
@@ -35,7 +40,9 @@ function EditPostPopup({ id, open, onClose }) {
     // Check if price matches the nn.nn format
     if (!priceRegex.test(price)) {
       // Display an error message or handle invalid input
-      alert('Price format should be any number with two digits after the decimal point.');
+      alert(
+        'Price format should be any number with two digits after the decimal point.'
+      );
       return;
     }
 
@@ -67,9 +74,14 @@ function EditPostPopup({ id, open, onClose }) {
   };
 
   const handleImageChange = (event) => {
-    // Get the selected photo
-    const selectedPhoto = event.target.files[0];
-    setPhoto(selectedPhoto);
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (

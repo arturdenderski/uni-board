@@ -31,18 +31,8 @@ function PostList({ filters, setPost }) {
   return (
     <Grid item xs={6}>
       <Stack container spacing={2} style={{ padding: '20px' }}>
-        {filteredPosts.map((post) => (
-          <PostMini
-            id={post.id}
-            photo={post.photo}
-            title={post.title}
-            description={post.description}
-            author={users.find((user) => user.id === post.authorId).name}
-            authorId={post.authorId}
-            location={post.location}
-            price={post.price}
-            setPost={setPost}
-          />
+        {filteredPosts.map((post, index) => (
+          <PostMini id={index} post={post} setPost={setPost} />
         ))}
       </Stack>
     </Grid>

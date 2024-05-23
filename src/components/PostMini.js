@@ -14,18 +14,7 @@ const Img = styled('img')({
   borderRadius: '10px',
 });
 
-const PostMini = ({
-  id,
-  photo,
-  title,
-  description,
-  location,
-  author,
-  authorId,
-  price,
-  setPost,
-}) => {
-  const [boxId, setBoxId] = useState(-1);
+const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
   const [openEditPopup, setOpenEditPopup] = useState(false);
 
   const handleOpenEditPopup = () => {
@@ -34,7 +23,7 @@ const PostMini = ({
 
   const handleCloseEditPopup = () => {
     setOpenEditPopup(false);
-    window.location.reload();
+    updatePost(post);
   };
 
   const handleImgError = (event) => {
@@ -62,7 +51,7 @@ const PostMini = ({
           <Grid item>
             <Img
               alt="photo"
-              src={photo}
+              src={post.photo}
               onError={handleImgError}
               sx={{ width: 128, height: 128 }}
             />
@@ -76,10 +65,10 @@ const PostMini = ({
                   component="div"
                   style={{ fontWeight: 'bold' }}
                 >
-                  {title}
+                  {post.title}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {description}
+                  {post.description}
                 </Typography>
               </Grid>
             </Grid>
@@ -90,24 +79,24 @@ const PostMini = ({
             >
               <Grid style={{ flexGrow: '1' }}>
                 <Typography variant="subtitle1" component="div">
-                  {price}€
+                  {post.price}€
                 </Typography>
-                {authorId !== -1 && (
+                {post.authorId !== -1 && (
                   <Typography variant="body2" color="text.secondary">
-                    {author}
+                    {post.author}
                   </Typography>
                 )}
                 <Typography variant="body2" color="text.secondary">
-                  {location}
+                  {post.location}
                 </Typography>
               </Grid>
-              {authorId !== -1 ? (
-                <Button variant="contained" onClick={() => setPost(id)}>
-                  Reach out
-                </Button>
-              ) : (
+              {isMine ? (
                 <Button variant="contained" onClick={handleOpenEditPopup}>
                   Edit
+                </Button>
+              ) : (
+                <Button variant="contained" onClick={() => setPost(id)}>
+                  Reach out
                 </Button>
               )}
             </Grid>

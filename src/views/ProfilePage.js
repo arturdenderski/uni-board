@@ -8,8 +8,6 @@ import { Grid, Stack } from '@mui/material';
 import PostMini from '../components/PostMini';
 import CreatePostPopup from '../components/CreatePostPopup';
 
-const parsedPosts = JSON.parse(localStorage.getItem('posts')) || [];
-
 function ProfilePage() {
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const navigate = useNavigate();
@@ -22,8 +20,10 @@ function ProfilePage() {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
-  const [postsState, setPostsState] = useState(parsedPosts);
   const [openPopup, setOpenPopup] = useState(false);
+  const [posts, setPosts] = useState(
+    JSON.parse(localStorage.getItem('myposts'))
+  );
 
   const handleOpenPopup = () => {
     setOpenPopup(true);
@@ -50,14 +50,16 @@ function ProfilePage() {
     toggleDrawer();
   };
 
+  const onPostUpdate = () => {
+    setPosts(JSON.parse(localStorage.getItem('myposts')));
+  };
+
   useEffect(() => {
-    if(drawerOpen === true)
-    {
+    if (drawerOpen === true) {
       setSelectedPost(-1);
     }
   }, [drawerOpen]);
 
-  let posts = JSON.parse(localStorage.getItem('myposts'));
   const users = JSON.parse(localStorage.getItem('users'));
 
   return (
@@ -90,15 +92,12 @@ function ProfilePage() {
           sx={{ marginLeft: 'auto', marginRight: 'auto', width: '50%' }}
         >
           <Stack container spacing={2} style={{ padding: '20px' }}>
-            {posts.map((post) => (
+            {posts.map((post, index) => (
               <PostMini
-                id={post.id}
-                photo={post.photo}
-                title={post.title}
-                description={post.description}
-                authorId={-1}
-                location={post.location}
-                price={post.price}
+                id={index}
+                post={post}
+                isMine={true}
+                updatePost={onPostUpdate}
               />
             ))}
             <Button
