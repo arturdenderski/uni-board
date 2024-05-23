@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import MessageBox from './MessageBox';
 import EditPostPopup from './EditPostPopup';
 
 const Img = styled('img')({
@@ -29,7 +28,6 @@ const PostMini = ({
   const [boxId, setBoxId] = useState(-1);
   const [openEditPopup, setOpenEditPopup] = useState(false);
 
-
   const handleOpenEditPopup = () => {
     setOpenEditPopup(true);
   };
@@ -37,6 +35,10 @@ const PostMini = ({
   const handleCloseEditPopup = () => {
     setOpenEditPopup(false);
     window.location.reload();
+  };
+
+  const handleImgError = (event) => {
+    event.target.src = './no-image.jpg';
   };
 
   return (
@@ -51,10 +53,19 @@ const PostMini = ({
             theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         }}
       >
-        <EditPostPopup open={openEditPopup} onClose={handleCloseEditPopup} id={id}/>
+        <EditPostPopup
+          open={openEditPopup}
+          onClose={handleCloseEditPopup}
+          id={id}
+        />
         <Grid container spacing={2}>
           <Grid item>
-            <Img alt="photo" src={photo} sx={{ width: 128, height: 128 }} />
+            <Img
+              alt="photo"
+              src={photo}
+              onError={handleImgError}
+              sx={{ width: 128, height: 128 }}
+            />
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
@@ -95,10 +106,7 @@ const PostMini = ({
                   Reach out
                 </Button>
               ) : (
-                <Button
-                  variant="contained"
-                  onClick={handleOpenEditPopup}
-                >
+                <Button variant="contained" onClick={handleOpenEditPopup}>
                   Edit
                 </Button>
               )}
