@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@mui/material';
 
-function EditPostPopup({ id, open, onClose }) {
+function EditPostPopup({ id, post, open, onClose }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -15,18 +15,11 @@ function EditPostPopup({ id, open, onClose }) {
   const [photo, setPhoto] = useState('');
 
   useEffect(() => {
-    console.log(id);
-    // Load post data from localStorage based on the provided ID
-    const userPosts = JSON.parse(localStorage.getItem('myposts')) || [];
-    const post = userPosts.find((post) => post.id === id);
-
     if (post) {
       setTitle(post.title);
       setDescription(post.description);
       setLocation(post.location);
       setPrice(post.price);
-      // You might need to load photo data differently if it's stored differently
-      // For simplicity, this example assumes it's stored as a URL
       setPhoto(post.photo);
     } else {
       return;
@@ -50,10 +43,10 @@ function EditPostPopup({ id, open, onClose }) {
     const userPosts = JSON.parse(localStorage.getItem('myposts')) || [];
 
     // Find the post in the user's posts array and update it
-    const updatedPosts = userPosts.map((post) => {
-      if (post.id === id) {
+    const updatedPosts = userPosts.map((other) => {
+      if (other.id === post.id) {
         return {
-          ...post,
+          ...other,
           title,
           description,
           location,
@@ -63,7 +56,7 @@ function EditPostPopup({ id, open, onClose }) {
           photo: photo || post.photo, // Keep the existing photo if no new one is uploaded
         };
       }
-      return post;
+      return other;
     });
 
     // Update user posts in local storage

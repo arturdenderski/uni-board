@@ -44,6 +44,7 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
       >
         <EditPostPopup
           open={openEditPopup}
+          post={post}
           onClose={handleCloseEditPopup}
           id={id}
         />

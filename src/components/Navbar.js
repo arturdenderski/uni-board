@@ -33,7 +33,6 @@ function Navbar({ onMessagesIconClick }) {
 
   useEffect(() => {
     let tagId = locationIdMap[location.pathname];
-    console.log(location.pathname);
     document.getElementById(tagId)?.classList.add('tab-active');
   });
 
