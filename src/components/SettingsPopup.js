@@ -10,6 +10,7 @@ import {
   Grid,
   styled,
   IconButton,
+  Stack,
 } from '@mui/material';
 
 const VisuallyHiddenInput = styled('input')({
@@ -76,69 +77,72 @@ function SettingsPopup({ open, onClose }) {
     <Dialog fullWidth={false} open={open} onClose={onClose}>
       <DialogTitle style={{ fontSize: '30px' }}>Settings</DialogTitle>
       <DialogContent dividers>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={12}>
-            <IconButton onClick={handleProfilePicClick}>
+        <Stack direction="column" spacing={2}>
+          <Stack item xs={8}>
+            <IconButton
+              onClick={handleProfilePicClick}
+              style={{ width: '320px', height: '320px', margin: 'auto' }}
+            >
               <img
                 src={profilePic}
                 alt="Profile picture"
                 style={{
-                  width: '300px',
-                  height: '300px',
+                  width: '320px',
+                  height: '320px',
                   borderRadius: '20px',
-                  margin: 'auto',
                 }}
               />
             </IconButton>
-          </Grid>
+          </Stack>
+          <Stack item xs={4}>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              style={{ maxWidth: '300px', paddingLeft: '70px' }}
+            >
+              <Grid item xs={12}></Grid>
 
-          <Grid item xs={6}>
-            <Typography variant="subtitle1" gutterBottom>
-              Name:
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="body1" gutterBottom>
-              {name}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="subtitle1" gutterBottom>
-              Surname:
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="body1" gutterBottom>
-              {surname}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="subtitle1" gutterBottom>
-              Email:
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="body1" gutterBottom>
-              {email}
-            </Typography>
-          </Grid>
-        </Grid>
+              <Grid item xs={6}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Name:
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1" gutterBottom>
+                  {name} {surname}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Email:
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1" gutterBottom>
+                  {email}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Stack>
+        </Stack>
 
-        <Button
-          component="label"
-          role={undefined}
-          variant="contained"
-          tabIndex={-1}
-        >
-          Upload new picture
-          <VisuallyHiddenInput
-            id="profile-pic-selector"
-            onChange={handleImageChange}
-            type="file"
-            accept="image/*"
-          />
-        </Button>
         <DialogActions dividers>
+          <Button
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            style={{ marginTop: '16px' }}
+          >
+            Upload new picture
+            <VisuallyHiddenInput
+              id="profile-pic-selector"
+              onChange={handleImageChange}
+              type="file"
+              accept="image/*"
+            />
+          </Button>
           <Button
             variant="contained"
             color="primary"
