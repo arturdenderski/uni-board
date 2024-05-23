@@ -58,86 +58,88 @@ function Navbar({ onMessagesIconClick }) {
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar id="navbar-toolbar">
-          {/* UNIBOARD text on the left, wrapped with Link */}
-          <Typography
-            variant="h6"
-            sx={{
-              flexGrow: 1,
-              fontSize: '40px',
-              textDecoration: 'none',
-              color: 'inherit',
-              userSelect: 'none',
-            }}
-          >
-            U N I B O A R D
-          </Typography>
-
-          <Link className="nav-tab" id="search-tab" to="/search-page">
-            Browse
-          </Link>
-
-          <Link className="nav-tab" id="profile-tab" to="/profile-page">
-            Your Posts
-          </Link>
-
-          <Link className="nav-tab" onClick={() => setCreatePostOpen(true)}>
-            + Create
-          </Link>
-
-          {/* Messages icon */}
-          <Link className="nav-tab" onClick={onMessagesIconClick}>
-            <ForumOutlinedIcon sx={{ marginTop: '10px' }} />
-          </Link>
-
-          {/* Profile */}
-          <Box id="profile-tab">
-            <Tooltip
-              title="Open settings"
-              style={{
-                display: 'flex',
+      <div className="navbar-proper">
+        <AppBar position="sticky">
+          <Toolbar id="navbar-toolbar">
+            {/* UNIBOARD text on the left, wrapped with Link */}
+            <Typography
+              variant="h6"
+              sx={{
+                flexGrow: 1,
+                fontSize: '40px',
+                textDecoration: 'none',
+                color: 'inherit',
+                userSelect: 'none',
               }}
             >
-              <Link className="nav-tab" onClick={handleOpenUserMenu}>
-                <Typography
-                  variant="body1"
-                  sx={{ marginTop: '7%', marginRight: '20px' }}
-                >
-                  {userEmail}
-                </Typography>
-                <Avatar
-                  src={profilePic}
-                  sx={{ width: '50px', height: '50px' }}
-                ></Avatar>
-              </Link>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem key="settings" onClick={handleSettings}>
-                <Typography textAlign="center">Settings</Typography>
-              </MenuItem>
-              <MenuItem key="settings" onClick={handleLogout}>
-                <Typography textAlign="center">Log out</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </AppBar>
+              UNIBOARD
+            </Typography>
+
+            <Link className="nav-tab" id="search-tab" to="/search-page">
+              Browse
+            </Link>
+
+            <Link className="nav-tab" id="profile-tab" to="/profile-page">
+              Your Posts
+            </Link>
+
+            <Link className="nav-tab" onClick={() => setCreatePostOpen(true)}>
+              + Create
+            </Link>
+
+            {/* Messages icon */}
+            <Link className="nav-tab" onClick={onMessagesIconClick}>
+              <ForumOutlinedIcon sx={{ marginTop: '10px' }} />
+            </Link>
+
+            {/* Profile */}
+            <Box id="profile-tab">
+              <Tooltip
+                title="Open settings"
+                style={{
+                  display: 'flex',
+                }}
+              >
+                <Link className="nav-tab" onClick={handleOpenUserMenu}>
+                  <Typography
+                    variant="body1"
+                    sx={{ marginTop: '7%', marginRight: '20px' }}
+                  >
+                    {userEmail}
+                  </Typography>
+                  <Avatar
+                    src={profilePic}
+                    sx={{ width: '50px', height: '50px' }}
+                  ></Avatar>
+                </Link>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem key="settings" onClick={handleSettings}>
+                  <Typography textAlign="center">Settings</Typography>
+                </MenuItem>
+                <MenuItem key="settings" onClick={handleLogout}>
+                  <Typography textAlign="center">Log out</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </div>
       <SettingsPopup
         open={settingsOpen}
         onClose={() => {

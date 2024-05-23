@@ -94,7 +94,12 @@ function MainPage() {
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={handleKeyEvent}
           />
-          <Button variant="contained" color="primary" onClick={handleLogin}>
+          <Button
+            className="btn"
+            variant="contained"
+            color="primary"
+            onClick={handleLogin}
+          >
             Login
           </Button>
         </Box>

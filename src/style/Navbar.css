@@ -3,6 +3,7 @@
     font-weight: bold;
     color: rgb(255, 255, 255);
   }
+  background-color: #579add;
 }
 
 .nav-tab {
@@ -15,4 +16,12 @@
 
 .nav-tab:hover {
   color: rgb(0, 56, 121);
+}
+
+.navbar-proper {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure it stays above other content */
+  width: 100% !important;
 }

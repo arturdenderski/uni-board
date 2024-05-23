@@ -123,7 +123,11 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
               </Grid>
               {isMine ? (
                 <div>
-                  <Button variant="contained" onClick={handleOpenEditPopup}>
+                  <Button
+                    className="btn"
+                    variant="contained"
+                    onClick={handleOpenEditPopup}
+                  >
                     Edit
                   </Button>
                   <IconButton
@@ -134,7 +138,11 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
                   </IconButton>
                 </div>
               ) : (
-                <Button variant="contained" onClick={() => setPost(id)}>
+                <Button
+                  className="btn"
+                  variant="contained"
+                  onClick={() => setPost(id)}
+                >
                   Reach out
                 </Button>
               )}

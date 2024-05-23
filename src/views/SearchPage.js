@@ -33,8 +33,7 @@ function SearchPage() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   useEffect(() => {
-    if(drawerOpen === true)
-    {
+    if (drawerOpen === true) {
       setSelectedPost(-1);
     }
   }, [drawerOpen]);
@@ -70,20 +69,39 @@ function SearchPage() {
   };
 
   return (
-    <Grid container spacing={2} sx={{ backgroundColor: '#f0f0f0' }}>
+    <>
       {/* Navbar */}
-      <Grid item xs={12}>
-        <Navbar onMessagesIconClick={toggleDrawer} />
-      </Grid>
-      <MessagesDrawer
-        open={drawerOpen}
-        onClose={toggleDrawer}
-        onUserSelect={handleUserSelect}
-      />
+      <Navbar onMessagesIconClick={toggleDrawer} style={{ width: '100%' }} />
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          backgroundColor: '#f0f0f0',
+          position: 'relative',
+          minHeight: '100vh',
+        }}
+      >
+        <MessagesDrawer
+          open={drawerOpen}
+          onClose={toggleDrawer}
+          onUserSelect={handleUserSelect}
+        />
 
-      {/* Filters Menu */}
-      <Grid item xs={3}>
-        <Paper elevation={2} variant="outlined" sx={{ marginLeft: '50px', marginTop: '50px', marginRight: '50px' }}>
+        {/* Filters Menu */}
+        <Paper
+          elevation={2}
+          variant="outlined"
+          sx={{
+            marginLeft: '50px',
+            marginTop: '50px',
+            marginRight: '50px',
+            maxHeight: '400px',
+            position: 'sticky',
+            top: '100px',
+            width: '25%',
+            padding: '10px',
+          }}
+        >
           <Stack
             direction="column"
             spacing={2}
@@ -93,7 +111,7 @@ function SearchPage() {
             <div>
               <TextField
                 id="searchbar"
-                sx={{width: '100%' }}
+                sx={{ width: '100%' }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -133,11 +151,11 @@ function SearchPage() {
             </Grid>
           </Stack>
         </Paper>
+        <MessageBox postId={selectedPost} onClose={() => setSelectedPost(-1)} />
+        {/* Offer List */}
+        <PostList filters={filters} setPost={setSelectedPost} />
       </Grid>
-      <MessageBox postId={selectedPost} onClose={() => setSelectedPost(-1)} />
-      {/* Offer List */}
-      <PostList filters={filters} setPost={setSelectedPost}/>
-    </Grid>
+    </>
   );
 }
 
