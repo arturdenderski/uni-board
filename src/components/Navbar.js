@@ -5,12 +5,15 @@ import { IconButton, MenuItem } from '@mui/material';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import Avatar from '@mui/material/Avatar';
 import '../style/Navbar.css';
+
 import SettingsPopup from './SettingsPopup.js';
 import LogoutConfirmationPopup from './LogoutConfirmationPopup.js';
+import CreatePostPopup from './CreatePostPopup.js';
 
 function Navbar({ onMessagesIconClick }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  const [createPostOpen, setCreatePostOpen] = React.useState(false);
   const [logoutOpen, setLogoutOpen] = React.useState(false);
 
   const profilePic = localStorage.getItem('userProfilePicture');
@@ -46,6 +49,13 @@ function Navbar({ onMessagesIconClick }) {
     handleCloseUserMenu();
   };
 
+  const handlePostCreated = () => {
+    setCreatePostOpen(false);
+    if (location.pathname === '/profile-page') {
+      window.location.reload();
+    }
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -72,7 +82,7 @@ function Navbar({ onMessagesIconClick }) {
             Your Posts
           </Link>
 
-          <Link className="nav-tab" to="/profile-page">
+          <Link className="nav-tab" onClick={() => setCreatePostOpen(true)}>
             + Create
           </Link>
 
@@ -140,6 +150,7 @@ function Navbar({ onMessagesIconClick }) {
           setLogoutOpen(false);
         }}
       />
+      <CreatePostPopup open={createPostOpen} onClose={handlePostCreated} />
     </>
   );
 }

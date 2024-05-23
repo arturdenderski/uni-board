@@ -5,6 +5,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import EditPostPopup from './EditPostPopup';
+import ImagePreviewPopup from './ImagePreviewPopup';
+import { IconButton } from '@mui/material';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -16,6 +18,7 @@ const Img = styled('img')({
 
 const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
   const [openEditPopup, setOpenEditPopup] = useState(false);
+  const [openPreviewPopup, setOpenPreviewPopup] = useState(false);
 
   const handleOpenEditPopup = () => {
     setOpenEditPopup(true);
@@ -31,7 +34,7 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
   };
 
   return (
-    <div>
+    <>
       <Paper
         sx={{
           p: 2,
@@ -42,20 +45,16 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
             theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         }}
       >
-        <EditPostPopup
-          open={openEditPopup}
-          post={post}
-          onClose={handleCloseEditPopup}
-          id={id}
-        />
         <Grid container spacing={2}>
           <Grid item>
-            <Img
-              alt="photo"
-              src={post.photo}
-              onError={handleImgError}
-              sx={{ width: 128, height: 128 }}
-            />
+            <IconButton onClick={() => setOpenPreviewPopup(true)}>
+              <Img
+                alt="photo"
+                src={post.photo}
+                onError={handleImgError}
+                sx={{ width: 128, height: 128 }}
+              />
+            </IconButton>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
@@ -104,7 +103,20 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
           </Grid>
         </Grid>
       </Paper>
-    </div>
+      {isMine && (
+        <EditPostPopup
+          open={openEditPopup}
+          post={post}
+          onClose={handleCloseEditPopup}
+          id={id}
+        />
+      )}
+      <ImagePreviewPopup
+        open={openPreviewPopup}
+        setOpen={setOpenPreviewPopup}
+        image={post.photo}
+      />
+    </>
   );
 };
 

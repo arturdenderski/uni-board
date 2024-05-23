@@ -15,3 +15,8 @@ code {
 .hidden {
   display: none;
 }
+
+.preview-no-image {
+  width: 300px;
+  height: 300px;
+}
