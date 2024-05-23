@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import EditPostPopup from './EditPostPopup';
 import ImagePreviewPopup from './ImagePreviewPopup';
 import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -31,6 +32,24 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
 
   const handleImgError = (event) => {
     event.target.src = './no-image.jpg';
+  };
+
+  const handleDeletePost = () => {
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      // Retrieve posts from local storage
+      const posts = JSON.parse(localStorage.getItem('myposts')) || [];
+      console.log(posts);
+      console.log(post.id);
+
+      // Filter out the post to be deleted
+      const updatedPosts = posts.filter((p) => p.id !== post.id);
+      console.log(updatedPosts);
+      // Update local storage
+      localStorage.setItem('myposts', JSON.stringify(updatedPosts));
+      // Optionally update the state to reflect the change in the UI
+      // If you have a state that holds the posts, you can update it here
+      updatePost(null); // Assuming updatePost can handle null to refresh the list
+    }
   };
 
   return (
@@ -95,9 +114,14 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
                 </Typography>
               </Grid>
               {isMine ? (
-                <Button variant="contained" onClick={handleOpenEditPopup}>
-                  Edit
-                </Button>
+                <div>
+                  <Button variant="contained" onClick={handleOpenEditPopup}>
+                    Edit
+                  </Button>
+                  <IconButton onClick={handleDeletePost} aria-label="delete" style={{margin: '0px 10px'}}>
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
               ) : (
                 <Button variant="contained" onClick={() => setPost(id)}>
                   Reach out
