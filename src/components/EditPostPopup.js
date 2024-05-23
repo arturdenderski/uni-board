@@ -133,7 +133,7 @@ function EditPostPopup({ id, post, open, onClose }) {
               Remove Photo
             </Button>
           </Stack>
-          <Stack direction="column">
+          <Stack direction="column" sx={{marginLeft: '32px'}}>
             <TextField
               label="Title"
               value={title}
@@ -170,7 +170,7 @@ function EditPostPopup({ id, post, open, onClose }) {
           variant="contained"
           color="primary"
           onClick={handleCancel}
-          style={{ marginTop: '16px' }}
+          style={{ marginTop: '16px', width: '89px', marginRight: '16px'}}
         >
           Cancel
         </Button>
@@ -178,16 +178,16 @@ function EditPostPopup({ id, post, open, onClose }) {
           variant="contained"
           color="primary"
           onClick={handleDelete}
-          style={{ marginTop: '16px' }}
+          style={{ marginTop: '16px', width: '89px', marginRight: '16px' }}
         >
-          Delete Post
+          Delete
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={handleSave}
           disabled={!title || !description || !location || !price}
-          style={{ marginTop: '16px' }}
+          style={{ marginTop: '16px', width: '89px' }}
         >
           Save
         </Button>

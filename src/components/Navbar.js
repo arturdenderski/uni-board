@@ -65,7 +65,7 @@ function Navbar({ onMessagesIconClick }) {
             variant="h6"
             sx={{
               flexGrow: 1,
-              fontSize: '30px',
+              fontSize: '40px',
               textDecoration: 'none',
               color: 'inherit',
               userSelect: 'none',

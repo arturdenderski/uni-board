@@ -33,17 +33,17 @@ function MessagesDrawer({ open, onClose, onUserSelect }) {
 
   return (
     <Drawer anchor="right" open={open} onClose={onClose} width={400} Modal={false}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px', marginBottom: '0px'}}>
         <div style={{ fontWeight: 'bold' }}>Messages</div>
         <IconButton onClick={onClose} size="small">
           <CloseIcon />
         </IconButton>
       </div>
       <Divider />
-      <List style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 48px)' }}>
+      <List style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 48px)', padding: '0px'}}>
         {posts.map((post, index) => (
           <React.Fragment key={post.id}>
-            <ListItem button onClick={() => handlePostClick(post.id)}>
+            <ListItem button onClick={() => handlePostClick(post.id)} sx={{marginTop: '0'}}>
               <img src={post.photo} alt={post.title} style={{ marginRight: '10px', width: '50px', height: '50px', objectFit: 'cover', borderRadius: '50%' }} />
               <ListItemText
                 primary={post.title}

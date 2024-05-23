@@ -70,7 +70,7 @@ function SearchPage() {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ backgroundColor: '#f0f0f0' }}>
       {/* Navbar */}
       <Grid item xs={12}>
         <Navbar onMessagesIconClick={toggleDrawer} />
@@ -83,17 +83,17 @@ function SearchPage() {
 
       {/* Filters Menu */}
       <Grid item xs={3}>
-        <Paper elevation={2} variant="outlined" sx={{ marginLeft: '10px' }}>
+        <Paper elevation={2} variant="outlined" sx={{ marginLeft: '50px', marginTop: '50px', marginRight: '50px' }}>
           <Stack
             direction="column"
             spacing={2}
-            sx={{ padding: '10px', margin: '10px' }}
+            sx={{ padding: '10px', margin: '5px' }}
           >
             <Typography variant="h6">Search</Typography>
             <div>
               <TextField
                 id="searchbar"
-                sx={{ m: 1, width: '92%' }}
+                sx={{width: '100%' }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -117,7 +117,7 @@ function SearchPage() {
                   ),
                 }}
                 onChange={updateMin}
-                sx={{ width: '45%', paddingRight: '15px' }}
+                sx={{ width: '47.5%', paddingRight: '5%' }}
               />
               <TextField
                 label="max"
@@ -128,7 +128,7 @@ function SearchPage() {
                   ),
                 }}
                 onChange={updateMax}
-                sx={{ width: '45%' }}
+                sx={{ width: '47.5%' }}
               />
             </Grid>
           </Stack>
@@ -136,7 +136,7 @@ function SearchPage() {
       </Grid>
       <MessageBox postId={selectedPost} onClose={() => setSelectedPost(-1)} />
       {/* Offer List */}
-      <PostList filters={filters} setPost={setSelectedPost} />
+      <PostList filters={filters} setPost={setSelectedPost}/>
     </Grid>
   );
 }

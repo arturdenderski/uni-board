@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -6,8 +6,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import EditPostPopup from './EditPostPopup';
 import ImagePreviewPopup from './ImagePreviewPopup';
-import { IconButton } from '@mui/material';
+import { IconButton, Checkbox } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -20,6 +22,11 @@ const Img = styled('img')({
 const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
   const [openEditPopup, setOpenEditPopup] = useState(false);
   const [openPreviewPopup, setOpenPreviewPopup] = useState(false);
+  const [isLocked, setIsLocked] = useState(post.locked || false);
+
+  useEffect(() => {
+    setIsLocked(post.locked || false);
+  }, [post]);
 
   const handleOpenEditPopup = () => {
     setOpenEditPopup(true);
@@ -34,22 +41,19 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
     event.target.src = './no-image.jpg';
   };
 
-  const handleDeletePost = () => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
-      // Retrieve posts from local storage
-      const posts = JSON.parse(localStorage.getItem('myposts')) || [];
-      console.log(posts);
-      console.log(post.id);
-
-      // Filter out the post to be deleted
-      const updatedPosts = posts.filter((p) => p.id !== post.id);
-      console.log(updatedPosts);
-      // Update local storage
-      localStorage.setItem('myposts', JSON.stringify(updatedPosts));
-      // Optionally update the state to reflect the change in the UI
-      // If you have a state that holds the posts, you can update it here
-      updatePost(null); // Assuming updatePost can handle null to refresh the list
-    }
+  const handleLockChange = () => {
+    setIsLocked(!isLocked);
+    const userPosts = JSON.parse(localStorage.getItem('myposts')) || [];
+    const updatedPosts = userPosts.map((other) => {
+      if (other.id === post.id) {
+        return {
+          ...other,
+          locked: !isLocked,
+        };
+      }
+      return other;
+    });
+    localStorage.setItem('myposts', JSON.stringify(updatedPosts));
   };
 
   return (
@@ -75,7 +79,11 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
                 alt="photo"
                 src={post.photo}
                 onError={handleImgError}
-                sx={{ width: 128, height: 128 }}
+                sx={{
+                  width: 128,
+                  height: 128,
+                  filter: isLocked ? 'grayscale(100%)' : 'none',
+                }}
               />
             </IconButton>
           </Grid>
@@ -118,8 +126,11 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
                   <Button variant="contained" onClick={handleOpenEditPopup}>
                     Edit
                   </Button>
-                  <IconButton onClick={handleDeletePost} aria-label="delete" style={{margin: '0px 10px'}}>
-                    <DeleteIcon />
+                  <IconButton
+                    onClick={handleLockChange}
+                    sx={{ marginLeft: '8px' }}
+                  >
+                    {isLocked ? <LockIcon /> : <LockOpenIcon />}
                   </IconButton>
                 </div>
               ) : (

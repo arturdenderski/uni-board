@@ -30,9 +30,9 @@ function PostList({ filters, setPost }) {
 
   return (
     <Grid item xs={6}>
-      <Stack container spacing={2} style={{ padding: '20px' }}>
+      <Stack container spacing={2} style={{ marginTop: '50px' }}>
         {filteredPosts.map((post, index) => (
-          <PostMini id={index} post={post} setPost={setPost} />
+          <PostMini id={post.id} post={post} setPost={setPost} />
         ))}
       </Stack>
     </Grid>

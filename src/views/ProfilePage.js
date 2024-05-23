@@ -64,7 +64,7 @@ function ProfilePage() {
   const users = JSON.parse(localStorage.getItem('users'));
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#f0f0f0', position: 'relative', minHeight: '100vh' }}>
       <Navbar onMessagesIconClick={toggleDrawer} />
       <MessagesDrawer
         open={drawerOpen}
@@ -84,7 +84,7 @@ function ProfilePage() {
           gutterBottom
           style={{ marginTop: '20px', marginLeft: '20px' }}
         >
-          Your Posts
+          YOUR POSTS
         </Typography>
 
         <Grid

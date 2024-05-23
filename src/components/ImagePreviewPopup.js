@@ -8,10 +8,17 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function ImagePreviewPopup({ open, setOpen, image }) {
   return (
     <Dialog
-      maxWidth="lg"
       onClose={() => setOpen(false)}
       aria-labelledby="customized-dialog-title"
       open={open}
+      sx={{
+        '& .MuiDialog-paper': {
+          width: '90vh',
+          height: '90vh',
+          maxWidth: '90vh',
+          maxHeight: '90vh',
+        },
+      }}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
         Image Preview
@@ -31,10 +38,12 @@ export default function ImagePreviewPopup({ open, setOpen, image }) {
       <DialogContent dividers>
         <img
           src={image}
+          alt="Preview"
           onError={(event) => {
             event.target.src = './no-image.jpg';
             event.target.classList.add('preview-no-image');
           }}
+          style={{ width: '100%', height: '90%', objectFit: 'contain' }}
         />
       </DialogContent>
     </Dialog>
