@@ -47,7 +47,11 @@ const PostMini = ({ id, post, isMine, setPost, updatePost }) => {
       >
         <Grid container spacing={2}>
           <Grid item>
-            <IconButton onClick={() => setOpenPreviewPopup(true)}>
+            <IconButton
+              title="click to preview"
+              onClick={() => setOpenPreviewPopup(true)}
+              sx={{ borderRadius: 0, padding: 0 }}
+            >
               <Img
                 alt="photo"
                 src={post.photo}
