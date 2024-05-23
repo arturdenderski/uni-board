@@ -6,6 +6,7 @@ function MainPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     if (localStorage.getItem('loggedin') == '1') {
@@ -17,6 +18,18 @@ function MainPage() {
     // Dummy data for login
     const dummyEmail = 'dummy@ua.pt';
     const dummyPassword = '1234';
+
+    setErrorMsg('');
+
+    if (email === '') {
+      setErrorMsg('Email cannot be empty!');
+      return;
+    }
+
+    if (password === '') {
+      setErrorMsg('Password cannot be empty!');
+      return;
+    }
 
     // Check if email and password match the dummy data
     if (email === dummyEmail && password === dummyPassword) {
@@ -34,7 +47,13 @@ function MainPage() {
       navigate('/search-page');
     } else {
       // Display an error message if login fails
-      alert('Invalid email or password');
+      setErrorMsg('Invalid email or password');
+    }
+  };
+
+  const handleKeyEvent = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin();
     }
   };
 
@@ -51,6 +70,9 @@ function MainPage() {
           <Typography variant="body1" paragraph>
             An open-source bulletin board for university students
           </Typography>
+          <Typography variant="body1" style={{ color: 'red' }}>
+            {errorMsg}
+          </Typography>
           <TextField
             id="email"
             label="Email"
@@ -59,6 +81,7 @@ function MainPage() {
             margin="normal"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyEvent}
           />
           <TextField
             id="password"
@@ -69,6 +92,7 @@ function MainPage() {
             margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyEvent}
           />
           <Button variant="contained" color="primary" onClick={handleLogin}>
             Login
